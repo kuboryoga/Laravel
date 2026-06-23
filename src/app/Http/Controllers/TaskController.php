@@ -32,17 +32,21 @@ class TaskController extends Controller
     // 一覧画面表示
     public function index(Request $request)
     {
-        $keyword = $request->keyword;
+        $sort = $request->sort;
 
-        $query = Task::orderBy('deadline', 'asc');
+        $query = Task::query();
 
-        if (!empty($keyword)) {
-            $query->where('task_name', 'like', "%{$keyword}%");
+        if ($sort == 'deadline_desc') {
+            $query->orderBy('deadline', 'desc');
+        } elseif ($sort == 'name') {
+            $query->orderBy('task_name', 'asc');
+        } else {
+            $query->orderBy('deadline', 'asc');
         }
 
         $tasks = $query->get();
 
-        return view('list', compact('tasks', 'keyword'));
+        return view('list', compact('tasks', 'sort'));
     }
 
     public function edit($id)
