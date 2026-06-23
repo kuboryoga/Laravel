@@ -8,6 +8,33 @@
     <h1>タスク一覧画面</h1>
 
     <form action="/list" method="GET">
+
+        <select name="sort">
+
+            <option value="deadline_asc"
+                {{ ($sort ?? '') == 'deadline_asc' ? 'selected' : '' }}>
+                期限が近い順
+            </option>
+
+            <option value="deadline_desc"
+                {{ ($sort ?? '') == 'deadline_desc' ? 'selected' : '' }}>
+                期限が遠い順
+            </option>
+
+            <option value="name"
+                {{ ($sort ?? '') == 'name' ? 'selected' : '' }}>
+                タスク名順
+            </option>
+
+        </select>
+
+        <button type="submit">並び替え</button>
+
+    </form>
+
+    <br>
+
+    <form action="/list" method="GET">
         <input
             type="text"
             name="keyword"
